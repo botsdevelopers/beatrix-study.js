@@ -13,79 +13,75 @@ module.exports = {
    let words = args;
     if (words[0] === undefined) {
       const helpEmbed = new Discord.MessageEmbed()
-        .setColor("#c542f5")
-        .setTitle("!study help")
+        .setColor("BLUE")
+        .setAuthor(
+        "Beatrix • Study Cmds..",
+        "https://cdn.discordapp.com/emojis/890086553794256906.gif"
+      )
+       .setDescription("** Welcome to Beatrix's Study help panel.\n\n See the list of study Cmds :**.")
+
         .addFields(
           {
-            name: "`!study help`",
-            value: "display all commands in the `study` family",
+            name: "`<a:BlueStar:887999877957705759> study-clockin`",
+            value: "Star the study session with a timer",
           },
           {
-            name: "`!study clockin`",
-            value: "start a tracked study session",
+            name: "`<a:BlueStar:887999877957705759> study-clockout`",
+            value: "End the study session",
           },
-          {
-            name: "`!study clockout`",
-            value: "end a tracked study session",
-          },
-          // {
-          //   name: "`!study leaderboard`",
-          //   value: "display a leaderboard of those with the most study time",
-          // },
-          { name: "`!study total`", value: "display your total study time" }
+          { name: "`<a:BlueStar:887999877957705759> study-total`", value: "See the total time you have studied today" }
         );
+           .setThumbnail(client.user.displayAvatarURL())   
+           .setFooter(client.user.username)
+           .setTimestamp()
 
       message.channel.send({ embeds: [helpEmbed] });
     } else {
       switch (words[0].toUpperCase()) {
         case "HELP":
           const helpEmbed = new Discord.MessageEmbed()
-            .setColor("#c542f5")
-            .setTitle("!study help")
-            .addFields(
+            .setColor("BLUE")
+            .setThumbnail(client.user.displayAvatarURL())   
+            .setAuthor(
+        "Beatrix • Study Cmds..",
+        "https://cdn.discordapp.com/emojis/890086553794256906.gif"
+      )
+            .setDescription("** Welcome to Beatrix's Study help panel.\n\n See the list of study Cmds :**.")
+
+           .addFields(
               {
-                name: "`!study help`",
-                value: "display all commands in the `study` family",
+                name: "`<a:BlueStar:887999877957705759> study-clockin`",
+                value: "Star the study session with a timer",
               },
               {
-                name: "`!study clockin`",
-                value: "start a tracked study session",
+                name: "`<a:BlueStar:887999877957705759> study-clockout`",
+                value: "End the study session",
               },
               {
-                name: "`!study clockout`",
-                value: "end a tracked study session",
-              },
-              // {
-              //   name: "`!study leaderboard`",
-              //   value:
-              //     "display a leaderboard of those with the most study time",
-              // },
-              {
-                name: "`!study total`",
-                value: "display your total study time",
+                name: "`<a:BlueStar:887999877957705759> study-total`",
+                value: "See the total time you have studied today",
               }
             );
+           .setFooter(client.user.username)
+           .setTimestamp()
 
           message.channel.send({ embeds: [helpEmbed] });
           break;
-        case "CLOCKIN": //!study clockin
+        case "CLOCKIN": //study-clockin
           clockIn(message);
           break;
-        case "CLOCKOUT": //!study clockout
+        case "CLOCKOUT": //study-clockout
           clockOut(message);
           break;
-        case "LEADERBOARD": //!study leaderboard
-          leaderboard(message, client);
-          break;
-        case "TOTAL": //!study total
+        case "TOTAL": //study-total
           total(message);
           break;
         default:
-          //message.channel.send('Unexpected arguments. Try using `!study help` for more information.');
+          //message.channel.send('Unexpected arguments. Try using `.help` for more information.');
           const unexpectedArgumentsEmbed = new Discord.MessageEmbed()
             .setColor("#ff3300")
             .setTitle("Unexpected arguments")
-            .setDescription("Try using `!study help` for more information.");
+            .setDescription("Try using `.help` for more information.");
           message.channel.send({ embeds: [unexpectedArgumentsEmbed] });
           break;
       }
@@ -122,12 +118,12 @@ function clockIn(message) {
             doc.save();
 
             const clockInEmbed = new Discord.MessageEmbed()
-              .setColor("#ff3300")
-              .setTitle("Clocked in!")
-              .setThumbnail(
-                "https://static.displate.com/avatars/2021-03-22/95249c955be3cf912a337b55529728f2_e53e2117012a41b375c836bcc9e4713a.jpg"
-              )
-              .setDescription("User clocked in! Start time: " + formattedTime);
+              
+              .setAuthor(`Clock Started…`, "https://cdn.discordapp.com/emojis/891314360343998465.png")
+             .setDescription(`<a:r2:886915489190805515> **<@${message.author.id}>, Successfully Started clock <3 **. `)
+              .setColor("BLUE")
+        
+			.setFooter('By Beatrıx')
             message.channel.send({ embeds: [clockInEmbed] });
           }
         });
@@ -170,14 +166,11 @@ await User.findOneAndDelete({realuser:message.author.id});
               
 
               const clockInEmbed = new Discord.MessageEmbed()
-                .setColor("#ff3300")
-                .setTitle("User added and Clocked in!")
-                .setThumbnail(
-                  "https://d1x26sjkwh9vok.cloudfront.net/uploads/profile/20210318/6d4b2890-31a2-4ce1-b600-7f17a7ed555d.png"
-                )
-                .setDescription(
-                  "User added and clocked in! Start time: " + formattedTime
-                );
+                .setAuthor(`Clock Started…`, "https://cdn.discordapp.com/emojis/891314360343998465.png")
+		.setDescription(`<a:r2:886915489190805515> **<@${message.author.id}>, Successfully Started clock <3 **. `)
+                .setColor("BLUE")
+        
+			.setFooter('By Beatrıx')
               message.channel.send({ embeds: [clockInEmbed] });
             }
           }
@@ -211,16 +204,13 @@ function clockOut(message) {
               doc.save();
 
               const clockOutEmbed = new Discord.MessageEmbed()
-                .setColor("#34eb8c")
-                .setTitle("Clock Out!")
-                .setThumbnail(
-                  "https://media.istockphoto.com/vectors/cute-cat-waving-paw-cartoon-vector-illustration-vector-id1218481548?k=6&m=1218481548&s=612x612&w=0&h=bBHT3-dQ7YxYpkvrYaB6xFewMCx-pN5VLX2dsgE1KiM="
-                )
+                .setColor("BLUE")
+                
+                .setAuthor(`Clock Stoped…`, "https://cdn.discordapp.com/emojis/891314360343998465.png")
                 .setDescription(
-                  "Clocked Out! You studied for " +
-                    (timeStudied / 3600000).toFixed(2) +
-                    " hours."
+                  "<a:r2:886915489190805515> **<@${message.author.id}>, Successfully ended clock <3 **."
                 );
+                .setFooter('By Beatrıx')
               message.channel.send({ embeds: [clockOutEmbed] });
             }
           }
@@ -257,9 +247,9 @@ function total(message) {
                   "https://cdn.discordapp.com/attachments/802619145065594922/815433610621485086/33bs6c.png"
                 )
                 .setDescription(
-                  "Total study time is " +
+                  "**<@${message.author.id}>, Your total time study Today is -**" +
                     (doc.timetotal / 3600000).toFixed(2) +
-                    " hours."
+                    " min <3 ."
                 );
               message.channel.send({ embeds: [totalEmbed] });
             }
