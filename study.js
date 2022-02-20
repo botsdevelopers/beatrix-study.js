@@ -248,7 +248,7 @@ function total(message) {
                 )
                 .setDescription(
                   "**<@${message.author.id}>, Your total time study Today is -**" +
-                    (doc.timetotal / 3600000).toFixed(2) +
+                    (doc.timetotal / 60000).toFixed(2) +
                     " min <3 ."
                 );
               message.channel.send({ embeds: [totalEmbed] });
